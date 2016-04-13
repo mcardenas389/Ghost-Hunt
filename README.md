@@ -13,3 +13,9 @@ Ghost Hunt is a 2D, turn based RPG created in Unity. It is the first major proje
 **DialogueManager.cs** - Used to display dialogue boxes during interactions with NPC's as well as cutscenes.
 
 **GameController.cs** - Stores global data that will be constantly refered to (e.g. player stats, inventory, equipment, etc.) and also handles saving and loading saved files.
+
+**MainCamera.cs** - Controls camera movement and tracks player movement ensuring the player is always centered on the screen.
+
+**PlayerController.cs** - Handles animation and movement of the player character.
+
+**Spawner.cs** - Spawns a set prefab at a given position.
