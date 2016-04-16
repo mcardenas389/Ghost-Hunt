@@ -38,8 +38,7 @@ public class Enemy : MonoBehaviour {
 
 			inCombat = true;
 
-			CombatManager.combat.StartCombat();
-			//GameController.control.Test();
+			CombatManager.combat.StartCombat(gameObject.name);
 		}
 	}
 }

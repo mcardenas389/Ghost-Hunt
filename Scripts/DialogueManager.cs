@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour {
 				yield return StartCoroutine(WaitForButtonUp());
 				yield return StartCoroutine(WaitForButtonDown());
 				npcText.text = "";
+				portrait = Resources.Load("Assets/UI/temp manportrait.png") as Image;
 			}
 
 			Debug.Log("Reenable.");

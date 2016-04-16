@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class GameController : MonoBehaviour {
 	public static GameController control;
 	public Stats[] playerStats;
+	public Dictionary<string, List<string>[]> encounters = new Dictionary<string, List<string>[]>();
 
 	private PlayerData data;
 
