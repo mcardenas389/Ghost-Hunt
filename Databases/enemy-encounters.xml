@@ -1,0 +1,22 @@
+<encounters>
+	<enemy name="ghost">
+		<position pos="1">
+			<monster>none</monster>
+			<monster>ghost</monster>
+		</position>
+		<position pos="3">
+			<monster>none</monster>
+			<monster>ghost</monster>
+		</position>
+		<position pos="6">
+			<monster>ghost</monster>
+		</position>
+	</enemy>
+	<enemy name="rawr">
+		<position pos="4">
+			<monster>ghost</monster>
+			<monster>ghost</monster>	
+			<monster>none</monster>
+		</position>
+	</enemy>	
+</encounters>

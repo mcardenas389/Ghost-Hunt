@@ -1,0 +1,16 @@
+<cutscenes>
+	<scene number="1">
+		<portrait img="luke nuetral">
+			<dialogue>
+			Just a few more minutes and I can take a break. 
+			Just last a few more minutes, Luke.
+			</dialogue>
+		</portrait>
+		<portrait img="dan nuetral">
+			<dialogue>
+			Let me talk to your manager. 
+			I just can’t believe what I’m hearing!
+			</dialogue>
+		</portrait>
+	</scene>
+<cutscenes>
