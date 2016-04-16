@@ -67,7 +67,8 @@ public class CutsceneTest : MonoBehaviour {
 //		gameText.text = "";
 
 		for(int i = 0; i <= 7; i++) {
-			portrait.sprite = sprites[0];
+			//portrait.sprite = sprites[0];
+			portrait.overrideSprite = Resources.Load("Assets/UI/temp man portrait") as Sprite;
 			yield return StartCoroutine(TypeText(dialogue[i]));
 			//yield return StartCoroutine(WaitForButtonUp());
 			yield return StartCoroutine(WaitForButtonDown());

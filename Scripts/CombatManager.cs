@@ -7,10 +7,12 @@ public class CombatManager : MonoBehaviour {
 
 	private Transform camPosition;
 	private Transform combatPosition;
+	private Transform[] enemyPositions;
 	private PlayerController playerController;
 	private MainCamera mainCam;
 	private CombatStates state;
 	private int playerChoice;
+	private int enemyCounter = 0;
 	private bool inCombat = false;
 	private List<int> actionQueue = new List<int>();
 
@@ -40,6 +42,12 @@ public class CombatManager : MonoBehaviour {
 
 		gameObj = GameObject.FindGameObjectWithTag("Player");
 		playerController = gameObj.GetComponent<PlayerController>();
+
+		gameObj = GameObject.Find("Enemy Positions");
+		enemyPositions = gameObj.GetComponentsInChildren<Transform>();
+
+		foreach(Transform t in enemyPositions)
+			Debug.Log("position = " + t.position);
 
 		combatPosition = GameObject.Find("combat position").GetComponent<Transform>();
 
@@ -110,13 +118,36 @@ public class CombatManager : MonoBehaviour {
 	}
 
 	//disables movement controls for player character, fade-out, 
-	//positions camera to the combat map, initialize encounter, and fade-in
-	public void StartCombat() {
+	//positions camera to the combat map, initialize encounter, fade-in
+	public void StartCombat(string name) {
 		playerController.SetAnimation(false);
 		playerController.enabled = !playerController.enabled;
 		mainCam.enabled = !mainCam.enabled;
 		camPosition.position = combatPosition.position;
 
+		EncounterGenerator(name);
+
 		inCombat = true;
+	}
+
+	void EncounterGenerator(string name) {
+		GameObject go;
+		List<string>[] enemies = GameController.control.encounters[name];
+		string[] temp;
+		string prefab;
+
+		for(int i = 0; i < enemies.Length; i++) {
+			if(enemies[i] != null) {
+				temp = enemies[i].ToArray();
+
+				prefab = temp[Random.Range(0, temp.Length - 1)];
+
+				if(prefab != "none") {
+					enemyCounter++;
+					go = Instantiate(Resources.Load(prefab)) as GameObject;
+					go.transform.position = enemyPositions[i].position;
+				}
+			}
+		}
 	}
 }
