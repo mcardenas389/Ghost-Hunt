@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -45,9 +46,6 @@ public class CombatManager : MonoBehaviour {
 
 		gameObj = GameObject.Find("Enemy Positions");
 		enemyPositions = gameObj.GetComponentsInChildren<Transform>();
-
-		foreach(Transform t in enemyPositions)
-			Debug.Log("position = " + t.position);
 
 		combatPosition = GameObject.Find("combat position").GetComponent<Transform>();
 
