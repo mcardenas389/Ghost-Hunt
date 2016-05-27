@@ -26,3 +26,5 @@ Ghost Hunt is a 2D, turn based RPG created in Unity. It is the first major proje
 **v0.0.1** - created assets for the first area and implemented combat features.
 
 **v0.0.2** - implemented the enemy encounter system.
+
+**v0.0.3** - fine tuned the cutscene system.
