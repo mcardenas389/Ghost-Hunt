@@ -3,77 +3,78 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DialogueManager : MonoBehaviour {	
-	public Text npcText;
-	public float letterPause = 0.2f;
-	public string[] dialogue = new string[5];
-	public Image[] portraits = new Image[5];
+public class DialogueManager : MonoBehaviour {
+	public static DialogueManager dm;	
+	public float letterPause = 0.05f;
+	public bool Complete {
+		get {return complete;}
+	}
 
-	private bool isTalking = false;
-	private Image dialogueBox;
-	private Image portrait;
-	private PlayerController playerController;
+	private Image[] dialogueImages; //stores top and bottom portraits
+	private Text[] dialogueText; //stores top and bottom text fields
+	//private bool isTalking = false;
+	private bool complete = false;
+	private bool skip = false;
+
+	void Awake() {
+		if(dm == null) {
+			DontDestroyOnLoad(gameObject);
+			dm = this;
+		} else if(dm != this) {
+			Destroy(gameObject);
+		}
+	}
 
 	void Start () {
-		GameObject gameObj;
-
-		gameObj = GameObject.Find("Dialogue Box");
-		dialogueBox = gameObj.GetComponent<Image>();
-
-		gameObj = GameObject.Find("Portrait");
-		portrait = gameObj.GetComponent<Image>();
-
-		gameObj = GameObject.FindGameObjectWithTag("Player");
-		playerController = gameObj.GetComponent<PlayerController>();
+		dialogueImages = GetComponentsInChildren<Image>();
+		dialogueText = GetComponentsInChildren<Text>();
 	}
 
-	IEnumerator OnCollisionStay2D(Collision2D other) {
-		if(other.gameObject.tag == "Player" && Input.GetButton("Submit") && !isTalking) {
-			isTalking = true;
-
-			playerController.enabled = !playerController.enabled;
-			dialogueBox.enabled = !dialogueBox.enabled;
-			portrait.enabled = !portrait.enabled;
-
-			for(int i = 0; i <= 2; i++) {
-				yield return StartCoroutine(TypeText(dialogue[i]));
-				yield return StartCoroutine(WaitForButtonUp());
-				yield return StartCoroutine(WaitForButtonDown());
-				npcText.text = "";
-				portrait = Resources.Load("Assets/UI/temp manportrait.png") as Image;
-			}
-
-			Debug.Log("Reenable.");
-			playerController.enabled = !playerController.enabled;
-			dialogueBox.enabled = !dialogueBox.enabled;
-			portrait.enabled = !playerController.enabled;
-
-			yield return StartCoroutine(WaitForButtonUp());
-
-			isTalking = false;
-		}
+	void Update() {
+		if(Input.GetButton("Submit")) //&& isTalking)	
+			skip = true;
+		else skip = false;
 	}
 
-	IEnumerator TypeText(string line) {
-		Debug.Log("Entered TypeText");
-		bool keyUP = false;
+	public void TriggerBottomUI() {
+		dialogueImages[0].enabled = !dialogueImages[0].enabled;
+		dialogueImages[1].enabled = !dialogueImages[1].enabled;
+	}
 
+	public void TriggerTopUI() {
+		dialogueImages[2].enabled = !dialogueImages[2].enabled;
+		dialogueImages[3].enabled = !dialogueImages[3].enabled;
+	}
+
+	public void TypeText() {
+		//isTalking = true;
+		complete = false;
+		StartCoroutine(CoTypeText("hello world, hope you're having a nice day!", 0));
+	}
+
+	IEnumerator CoTypeText(string line, int i) {
 		foreach(char letter in line) {
-			if(!keyUP && Input.GetButtonUp("Submit"))
-				keyUP = true;
-
-			if(keyUP && Input.GetButtonDown("Submit")) {
-				npcText.text = line;
+			if(skip) {
+				dialogueText[i].text = line;
 				break;
 			}
-			npcText.text += letter;
+
+			dialogueText[i].text += letter;
+
 			yield return new WaitForSeconds(letterPause);
 		}
+
+		yield return WaitForButtonDown();
+		dialogueText[i].text = "";
+		complete = true;
 	}
 
 	IEnumerator WaitForButtonDown() {
+		Debug.Log("Waiting . . .");
 		while(!Input.GetButtonDown("Submit"))
 			yield return null;
+
+		Debug.Log("Done.");
 	}
 
 	IEnumerator WaitForButtonUp() {
