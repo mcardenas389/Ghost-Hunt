@@ -1,9 +1,9 @@
 # Ghost-Hunt
 
-##Overview
+## Overview
 Ghost Hunt is a 2D, turn based RPG created in Unity. It is the first major project that I've worked on in terms of game development, so I hope it turns out well! This README is largely for the purpose of stating the role of each class and the function of various assets needed in order for this project to function. Any classes or assets not mentioned in this file are likely to be phased out and most likely used for testing.
 
-##Classes
+## Classes
 **ChangeLayer.cs** - A simple script that will raise or lower a sprite's rendering layer depending on the position of the player character. i.e. if the player character is behind the sprite, the sprite will be on the rendering layer above the player character. 
 
 **CombatManager.cs** - Controls the flow of combat using a state machine. It also communicates with other scripts that are involved with combat and is essentially the "director" of the combat scene.
@@ -20,9 +20,9 @@ Ghost Hunt is a 2D, turn based RPG created in Unity. It is the first major proje
 
 **Spawner.cs** - Spawns a set prefab at a given position.
 
-##Version History
+## Version History
 
-###Pre-alpha
+### Pre-alpha
 **v0.0.1** - created assets for the first area and implemented combat features.
 
 **v0.0.2** - implemented the enemy encounter system.
